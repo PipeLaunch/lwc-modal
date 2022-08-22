@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customLabels>
+        <label>Cancelar</label>
+        <name>CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>Fechar esta janela</label>
+        <name>CLOSE_THIS_WINDOW</name>
+    </customLabels>
+</Translations>

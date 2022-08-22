@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>CANCEL</fullName>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+        <categories>generic</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+    </labels>
+    <labels>
+        <fullName>CLOSE_THIS_WINDOW</fullName>
+        <shortDescription>Close this window</shortDescription>
+        <value>Close this window</value>
+        <categories>generic</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+    </labels>
+</CustomLabels>

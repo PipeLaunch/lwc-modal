@@ -1,0 +1,28 @@
+/**
+  * Headless modal styling
+  *
+  * @selector .slds-modal__content_headless
+  * @restrict .slds-modal__content
+  */
+.custom-lwc-modal__content_headless {
+    border-top-right-radius: var(--slds-c-modal-radius-border, var(--sds-c-modal-radius-border, 0.25rem));
+    border-top-left-radius: var(--slds-c-modal-radius-border, var(--sds-c-modal-radius-border, 0.25rem));
+}
+
+/**
+  * Makes buttons inside the footer spread to both left and right.
+  *
+  * @selector .slds-modal__footer_directional
+  * @restrict .slds-modal__footer
+  * @notes This is only needed when you have two buttons that indicate a back and forward navigation.
+  * @modifier
+  * @group direction
+  */
+  .custom-lwc-modal__footer_directional > lightning-button {
+    float: right;
+  }
+
+  .custom-lwc-modal__footer_directional >  lightning-button:nth-child(2) {
+    float: left;
+  }
+

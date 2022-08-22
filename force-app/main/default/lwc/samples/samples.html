@@ -1,0 +1,403 @@
+<template>
+
+    <section class="slds-grid slds-wrap slds-gutters grid-gap ">
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Multiple Styles">
+
+                <div class="slds-var-p-horizontal_medium slds-var-p-vertical_small">
+                    <div class="slds-grid slds-grid_align-spread">
+                        <h2 class="slds-text-title_bold slds-var-p-right_small">
+                            Default
+                        </h2>
+                        <lightning-button variant="bare" label="Show" title="Test modal" data-modalselector="default"
+                            onclick={handleClickButtonTest}></lightning-button>
+                    </div>
+
+                    <div class="slds-grid slds-grid_align-spread slds-var-m-top_small">
+                        <h2 class="slds-text-title_bold slds-var-p-right_small">
+                            Directional
+                        </h2>
+                        <lightning-button variant="bare" label="Show" title="Test modal"
+                            data-modalselector="directional" onclick={handleClickButtonTest}></lightning-button>
+                    </div>
+
+                    <div class="slds-grid slds-grid_align-spread slds-var-m-top_small">
+                        <h2 class="slds-text-title_bold slds-var-p-right_small">
+                            Headless
+                        </h2>
+                        <lightning-button variant="bare" label="Show" title="Test modal" data-modalselector="headless"
+                            onclick={handleClickButtonTest}></lightning-button>
+                    </div>
+
+                    <div class="slds-grid slds-grid_align-spread slds-var-m-top_small">
+                        <h2 class="slds-text-title_bold slds-var-p-right_small">
+                            Footless
+                        </h2>
+                        <lightning-button variant="bare" label="Show" title="Test modal" data-modalselector="footless"
+                            onclick={handleClickButtonTest}></lightning-button>
+                    </div>
+
+                    <div class="slds-grid slds-grid_align-spread slds-var-m-top_small">
+                        <h2 class="slds-text-title_bold slds-var-p-right_small">
+                            Headless + Footless
+                        </h2>
+                        <lightning-button variant="bare" label="Show" title="Test modal"
+                            data-modalselector="headlessfootless" onclick={handleClickButtonTest}></lightning-button>
+                    </div>
+
+
+
+
+                </div>
+            </lightning-card>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Start visible">
+                <lightning-button variant="bare" label="Show" title="Test modal"
+                    onclick={handleClickButtonTestStartVisible} slot="actions">
+                </lightning-button>
+                <p class="slds-var-p-horizontal_medium slds-var-p-vertical_small slds-text-body_small slds-text-color_weak">
+                    Use the option
+                    &nbsp;<code>start-visible</code>&nbsp;to automatically show the modal when the component is
+                    rendered. Use this
+                    approach when you have a "heavy resources" component that needs to be refreshed on each
+                    connectedCallback
+                    like the lightning-record-form that can slowdown the page rendering and should only be loaded when
+                    needed. To capture the hide event and "destroy" the component use the <code>onhide</code> event that
+                    is sent each time the modal is closed.
+                </p>
+            </lightning-card>
+        </div>
+
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Overflow content">
+                <lightning-button variant="bare" label="Show" title="Test modal" data-modalselector="overflow"
+                    onclick={handleClickButtonTest} slot="actions">
+                </lightning-button>
+                <p class="slds-var-p-horizontal_medium slds-var-p-vertical_small slds-text-body_small slds-text-color_weak">
+                    With a large content or a combobox type component, the modal should be scrollable or overflow the
+                    popup dialog.
+                </p>
+            </lightning-card>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Custom content">
+                <div class="slds-var-p-horizontal_medium slds-var-p-vertical_small">
+                    <div class="slds-grid slds-grid_align-spread slds-var-m-top_small">
+                        <div>
+                            <h2 class="slds-text-title_bold slds-var-p-right_small">
+                                Footer slot
+                            </h2>
+                            <p class="slds-text-color_weak slds-text-body_small">Custom slot content inside the footer
+                            </p>
+                        </div>
+                        <lightning-button variant="bare" label="Show" title="Test modal" data-modalselector="slotfooter"
+                            onclick={handleClickButtonTest}></lightning-button>
+                    </div>
+
+                    <div class="slds-grid slds-grid_align-spread slds-var-m-top_small">
+                        <div>
+                            <h2 class="slds-text-title_bold slds-var-p-right_small">
+                                Footer slot with buttons
+                            </h2>
+                            <p class="slds-text-color_weak slds-text-body_small">Custom slot content inside the footer.
+                                Use <code>keep-footer-buttons</code> property to keep the buttons
+                            </p>
+                        </div>
+                        <lightning-button variant="bare" label="Show" title="Test modal" data-modalselector="slotfooter2"
+                            onclick={handleClickButtonTest}></lightning-button>
+                    </div>
+
+                    <div class="slds-grid slds-grid_align-spread slds-var-m-top_small">
+                        <div>
+                            <h2 class="slds-text-title_bold slds-var-p-right_small">
+                                Header slot
+                            </h2>
+                            <p class="slds-text-color_weak slds-text-body_small">Custom slot content inside the header.
+                            </p>
+                        </div>
+                        <lightning-button variant="bare" label="Show" title="Test modal" data-modalselector="slotheader"
+                            onclick={handleClickButtonTest}></lightning-button>
+                    </div>
+                </div>
+            </lightning-card>
+        </div>
+
+
+
+
+
+    </section>
+
+
+    <c-lwc-modal modal-title="Default Modal" data-selector="default">
+        <div class="slds-var-p-around_medium">
+            Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam
+            incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia
+            tempor esse quis. Cillum sunt ad dolore quis
+            aute consequat ipsum magna exercitation reprehenderit magna. Tempor cupidatat consequat elit dolor
+            adipisicing.
+            <p class="slds-var-p-top_small">
+                <strong>NOTE:</strong> the OK button isn't tied to an event. Use the cancel button or the <kbd>ESC</kbd>
+                key to close the modal
+            </p>
+        </div>
+    </c-lwc-modal>
+
+    <c-lwc-modal if:true={showModal} modal-title="LWC Modal Samples" data-selector="startvisible"
+        onhide={handleHideModalEvent} action-buttons={startvisibleActionButtons} onokevent={handleHideModalEvent}
+        start-visible>
+        <div class="slds-var-p-around_medium">
+            <p>This modal should be visible when you load this app and you the visibility is controlled by the parent
+                component.</p>
+            <p class="slds-var-p-top_small">
+                Here you can have a <em>"heavy"</em> component...
+
+                <lightning-record-form object-api-name="Account" layout-type="Compact" columns="1" mode="readonly">
+                </lightning-record-form>
+            </p>
+        </div>
+    </c-lwc-modal>
+
+    <c-lwc-modal modal-title="Overflow content" data-selector="overflow">
+        <div class="slds-var-p-around_medium">
+            <p>
+                You may distribute the Package, you should contact the Copyright Holder may include an application
+                programming interface ("API"../) and Contributor has knowledge of patent infringement claim (excluding
+                declaratory judgment actions) against Licensor or such Contributor under this Agreement must be
+                conspicuously included in the software accompanying this Agreement shall be subject to third party
+                intellectual property of third parties, if you want it to software (including a cross-claim or
+                counterclaim
+                in a manner which does not normally print such an announcement, your work you want it, that you can
+                become
+                the Current Maintainer (and the Copyright Holder provides the Work and any Modifications created by such
+                Participant, or (ii) withdraw Your litigation claim is necessary to use, copy, modify, sublicense or
+                distribute the Program (including its Contributions) under the terms of this Agreement, and to permit
+                recipients of Covered Code. You may also choose to distribute this software without prior written
+                permission. THIS SOFTWARE IS PROVIDED "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY RIGHTS
+                GRANTED
+                HEREUNDER, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+            </p>
+            <p>
+                The Licensor is not reachable and agrees to include in any such warranty or support, or for accepting
+                indemnity or liability obligations to one or more recipients of Covered Code with other software or to
+                contest validity of any other form of the Program itself (excluding combinations of some or all of the
+                License will be subject to the terms of Sections 1 and 2 above provided that each external component
+                clearly
+                states in the Licensed Product under the terms and conditions of this License issued under Section 2(b)
+                shall terminate if it fails to comply with any of its Contribution alone or when combined with the
+                CC-BY-SA
+                license or b) a hyperlink (where possible) or URL to the Program by such Contributor by reason of your
+                work
+                is TeX-related (such as a relevant directory file) where a user would be likely to look for such a way
+                shall
+                still be considered the Standard Version. In addition, after a new version of the Licensed Product, for
+                code
+                that You are allowed to make reasonable modifications. Testing is essential for proper development and
+                maintenance of standards-based products. For buyers: adequate conformance testing leads to reduced
+                integration costs and reasonable attorneys' fees and expenses. The application of that work are not
+                subject
+                to the Package. Items That are Not Considered Part of a change completed under the copyright and other
+                related laws and regulation of any change; and b) allow the Commercial Distributor in writing of such a
+                notice.
+            </p>
+            <p>
+                If You created one or more recipients of the original authors' reputations. Finally, any free program is
+                a
+                subroutine library, you may at your option) any later version published by Sun. No one other than the
+                Agreement Steward has the right to modify the terms of, this License to the computing community at large
+                as
+                a modified version of the following disclaimer in the United Nations Convention on Contracts for the
+                licensee would be to refrain entirely from distribution of executable or object code or executable form,
+                provided that you changed that file, and provided that you may include an application programming
+                interface
+                ("API"../) and Contributor has knowledge that a license to reproduce, analyze, test, perform and/or
+                display
+                publicly, prepare derivative works, distribute, and otherwise transfer the Contribution and the date
+                such
+                litigation is filed. All Recipient's rights under this Agreement shall be reformed only to the Work,
+                provided that Apple did not first commence an action for patent infringement claim (excluding
+                declaratory
+                judgment actions) against Licensor or Contributor against whom you made an Executable version, related
+                documentation or collateral in which case the failure of the Agreement Steward to a third party
+                intellectual
+                property laws of the material terms or conditions of this Agreement; and its terms, do not forfeit any
+                of
+                the Program.
+            </p>
+            <p>
+                Contributors may not offer or impose any terms that are subject to third party intellectual property
+                rights
+                of any change. You must satisfy all the rights granted herein. You are in compliance with the Copyright
+                Holder, and derivatives of that version or as a result of any Derivative Works that consist of either
+                the
+                full source distribution as originally released over Usenet or updated copies of this License or a
+                Contributor includes the Program originate from and are not compelled to copy from a Contributor shall
+                not
+                apply to any actual or alleged intellectual property rights needed, if any.
+            </p>
+            <p>
+                Original Code provided by Apple or any portion of this License Agreement, and without further action by
+                the
+                Free Software Foundation may assign the responsibility to secure any other entity based on it, under
+                Paragraph 2) in object code or executable. You may distribute and/or modify the License. New Versions.
+                Once
+                Licensed Product or portions thereof, but solely to the terms of the Standard Version.
+            </p>
+            <p>
+                You may develop, produce, market or distribute. Waiver; Construction. Failure by Apple or any
+                Contributor.
+                You hereby agree to license such Apple Modifications will not be automatically subject to the public,
+                the
+                best way to provide a service, including but not limited to Sections 3, 5, 8, 9, 10, 11, 12.2 and 13. No
+                party will be given a distinguishing version number.
+            </p>
+            <p>
+                Effect of New York and the Individual or Organization ("Licensee") accessing and otherwise using Python
+                1.6,
+                beta 1 SOFTWARE, YOU ARE DEEMED TO HAVE AGREED TO IN WRITING THE COPYRIGHT HOLDER AND CONTRIBUTORS "AS
+                IS'
+                AND WITHOUT WARRANTY, UPGRADES OR SUPPORT OF ANY OF SUCH PARTIES, BE LIABLE TO LICENSEE OR ANY AND ALL
+                CONTRIBUTORS EXPRESSLY DISCLAIM ALL WARRANTIES AND/OR CONDITIONS OF ANY KIND, EXPRESS OR IMPLIED. BY WAY
+                OF
+                EXAMPLE, BUT NOT LIMITED TO THE EXTENT NOT PROHIBITED BY LAW, NO COPYRIGHT HOLDER AND CONTRIBUTORS "AS
+                IS'
+                AND WITHOUT ANY EXPRESS OR IMPLIED. BY WAY OF EXAMPLE, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES AND/OR
+                CONDITIONS OF ANY KIND, EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL WARRANTIES AND/OR CONDITIONS,
+                EXPRESS OR IMPLIED. BY WAY OF EXAMPLE, BUT NOT LIMITATION, BEOPEN MAKES NO REPRESENTATIONS OR
+                WARRANTIES,
+                EXPRESS OR IMPLIED WARRANTY AS TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT SHALL THE PHP
+                DEVELOPMENT
+                TEAM OR ITS CONTRIBUTORS BE LIABLE TO LICENSEE OR ANY DERIVATIVE THEREOF, EVEN IF ADVISED OF THE USE OR
+                DISTRIBUTION OF THE LICENSED PROGRAM OR THE USE OR DISTRIBUTION OF THE PROGRAM IS PROVIDED BY THE
+                LICENSOR
+                "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+                SUCH
+                DAMAGES. The right to change the software itself, if and wherever such third-party acknowledgments
+                normally
+                appear.
+
+                The names "openSEAL" and "Entessa" must not be construed as modifying the Program by such Contributor as
+                a
+                result of any other entity that distributes the Program, and in Source Code and all countries in
+                accordance
+                with the case of International Business Machines Corporation ("IBM"), the Original Code and the like.
+                While
+                this license for the electronic transfer of data. Covered Code may contain terms different from this
+                License
+                provided (i) you have the option of following the terms of 3b) or 4), then that Current Maintainer must
+                become or remain the Current Maintainer of the Contribution. No hardware per se is licensed hereunder.
+                Recipient understands that there is no warranty for the physical act of transferring a copy, and you may
+                always be distributed and modified, as well as any updatesor maintenance releases of that particular
+                Contributor.
+            </p>
+
+            <lightning-input type="datetime" name="input1" label="Enter a date/time value"
+                class="slds-var-m-top_medium"></lightning-input>
+        </div>
+    </c-lwc-modal>
+
+    <c-lwc-modal data-selector="headless" headless>
+        <div class="slds-var-p-around_medium">
+            Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam
+            incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia
+            tempor esse quis. Cillum sunt ad dolore quis
+            aute consequat ipsum magna exercitation reprehenderit magna. Tempor cupidatat consequat elit dolor
+            adipisicing.
+            <p class="slds-var-p-top_small">
+                <strong>NOTE:</strong> the OK button isn't tied to an event. Use the cancel button or the <kbd>ESC</kbd>
+                key to close the modal
+            </p>
+        </div>
+    </c-lwc-modal>
+
+    <c-lwc-modal modal-title="Footless modal" data-selector="footless" footless>
+        <div class="slds-var-p-around_medium">
+            Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam
+            incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia
+            tempor esse quis. Cillum sunt ad dolore quis
+            aute consequat ipsum magna exercitation reprehenderit magna. Tempor cupidatat consequat elit dolor
+            adipisicing.
+            <p class="slds-var-p-top_small">
+                <strong>NOTE:</strong> the OK button isn't tied to an event. Use the close button or the <kbd>ESC</kbd>
+                key to close the modal
+            </p>
+        </div>
+    </c-lwc-modal>
+
+    <c-lwc-modal data-selector="headlessfootless" headless footless>
+        <div class="slds-var-p-around_medium">
+            Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam
+            incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia
+            tempor esse quis. Cillum sunt ad dolore quis
+            aute consequat ipsum magna exercitation reprehenderit magna. Tempor cupidatat consequat elit dolor
+            adipisicing.
+            <p class="slds-var-p-top_small">
+                <strong>NOTE:</strong> Use the close button or the <kbd>ESC</kbd> key to close the modal
+            </p>
+        </div>
+    </c-lwc-modal>
+
+    <c-lwc-modal modal-title="Directional modal" data-selector="directional" directional>
+        <div class="slds-var-p-around_medium">
+            Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam
+            incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia
+            tempor esse quis. Cillum sunt ad dolore quis
+            aute consequat ipsum magna exercitation reprehenderit magna. Tempor cupidatat consequat elit dolor
+            adipisicing.
+            <p class="slds-var-p-top_small">
+                <strong>NOTE:</strong> the OK button isn't tied to an event. Use the close button or the <kbd>ESC</kbd>
+                key to close the modal
+            </p>
+        </div>
+    </c-lwc-modal>
+
+    <c-lwc-modal modal-title="Footer slot" data-selector="slotfooter">
+        <div class="slds-var-p-around_medium">
+            Use <code>slds-grid</code> class to reset alignment
+            <p class="slds-var-p-top_small">
+                <strong>NOTE:</strong> Use the close button or the <kbd>ESC</kbd>
+                key to close the modal
+            </p>
+        </div>
+        <div class="slds-grid" slot="footer">
+            <lightning-icon icon-name="utility:info" alternative-text="info" size="x-small"></lightning-icon>
+            <span class="slds-var-p-left_x-small">This is a custom content</span>
+        </div>
+    </c-lwc-modal>
+
+    <c-lwc-modal modal-title="Footer slot" data-selector="slotfooter2" keep-footer-buttons>
+        <div class="slds-var-p-around_medium">
+            Use <code>slds-grid</code> class to reset the alignment
+            <p class="slds-var-p-top_small">
+                <strong>NOTE:</strong> the OK button isn't tied to an event. Use the close button or the <kbd>ESC</kbd>
+                key to close the modal
+            </p>
+        </div>
+        <div class="slds-grid" slot="footer">
+            <lightning-icon icon-name="utility:info" alternative-text="info" size="x-small"></lightning-icon>
+            <span class="slds-var-p-left_x-small">This is a custom content</span>
+        </div>
+    </c-lwc-modal>
+
+    <c-lwc-modal  data-selector="slotheader">
+        <div class="slds-var-p-around_medium">
+            Use <code>slds-grid</code> class to reset the alignment
+            <p class="slds-var-p-top_small">
+                <strong>NOTE:</strong> the OK button isn't tied to an event. Use the close button or the <kbd>ESC</kbd>
+                key to close the modal
+            </p>
+        </div>
+        <div slot="header">
+            <lightning-icon icon-name="utility:info" alternative-text="info" size="x-small"></lightning-icon>
+            <span class="slds-var-p-left_x-small">This is a custom content</span>
+        </div>
+    </c-lwc-modal>
+
+    <!-- <c-lwc-modal modal-title="test2" data-selector="test2" level="1"></c-lwc-modal>
+    <c-lwc-modal modal-title="test3" level="3"></c-lwc-modal> -->
+</template>

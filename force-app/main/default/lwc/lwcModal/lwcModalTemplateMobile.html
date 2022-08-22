@@ -1,0 +1,63 @@
+<template>
+    <section aria-describedby="modal-content-id-1" aria-hidden={visible} aria-labelledby="modal-heading-01"
+        aria-modal="true" class={computeModalMobileCssClasses} onkeyup={innerKeyUpHandler} role="dialog" tabindex="-1">
+
+        <!-- header -->
+        <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-var-p-vertical_small lwc-modal-header">
+
+            <!-- cancel button  -->
+            <div class="slds-grow-none slds-var-p-left_small">
+                <lightning-button if:true={cancelButton} variant="base" label={cancelButton.label}
+                    title={cancelButton.label} icon-name={cancelButton.iconName}
+                    icon-position={cancelButton.iconPosition} onclick={handleClickCancelButton}>
+                    <label class="slds-assistive-text">{labels.CANCEL}</label>
+                </lightning-button>
+            </div>
+
+            <!-- title  -->
+            <div class="slds-grow slds-align-content-center slds-text-align_center">
+                <h1 if:true={modalTitle} id="modal-heading-01"
+                    class="slds-modal__title slds-hyphenate slds-var-p-horizontal_x-small">
+                    {modalTitle}
+                </h1>
+            </div>
+
+            <!-- action buttons  -->
+            <div class="slds-grow-none slds-grid_align-end slds-var-p-right_small">
+                <template if:false={computeHasMultipleActionButtons} for:each={actionButtons} for:item="button">
+                    <lightning-button key={button.label} variant="base" data-id={button.label} label={button.label}
+                        title={button.label} onclick={handleClickActionButton} icon-name={button.iconName}
+                        icon-position={button.iconPosition} disabled={button.disabled}>
+                        <label class="slds-assistive-text">{button.label}</label>
+                    </lightning-button>
+                </template>
+
+                <lightning-button if:false={computeHasMultipleActionButtons} variant="base" label={actionButtons.label}
+                    title={actionButtons.label} icon-name={actionButtons.iconName}
+                    icon-position={actionButtons.iconPosition} onclick={actionButtons.onClick}>
+                    <label class="slds-assistive-text">{actionButtons.label}</label>
+                </lightning-button>
+
+                <!-- multiple action buttons appear inside a lightning-button-group -->
+                <lightning-button-group if:true={computeHasMultipleActionButtons}>
+                    <lightning-button label={lastActionButton.label}
+                        title={lastActionButton.label} onclick={lastActionButton.onClick}
+                        icon-name={lastActionButton.iconName} icon-position={lastActionButton.iconPosition} class="slds-truncate">
+                        <label class="slds-assistive-text">{lastActionButton.label}</label>
+                    </lightning-button>
+
+                    <lightning-button-menu menu-alignment="right" variant="border-filled" alternative-text="Show menu">
+                        <template for:each={remainingActionButtons} for:item="button">
+                            <lightning-menu-item key={button.label} onclick={button.onClick} icon-name={button.iconName}
+                                label={button.label} value={button.label}></lightning-menu-item>
+                        </template>
+                    </lightning-button-menu>
+                </lightning-button-group>
+            </div>
+        </div>
+
+        <div class="slds-modal__content" id="modal-content-id-1">
+            <slot></slot>
+        </div>
+    </section>
+</template>

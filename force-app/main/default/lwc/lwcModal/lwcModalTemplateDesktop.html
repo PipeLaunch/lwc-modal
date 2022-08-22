@@ -1,0 +1,61 @@
+<template>
+    <div if:false={_hideBackdrop} onclick={hide} class={computeBackdropCssClasses} role="presentation"></div>
+
+    <section aria-describedby="modal-content-id-1" aria-hidden={visible} aria-labelledby="modal-heading-01"
+        aria-modal="true" class={computeModalCssClasses} onkeyup={innerKeyUpHandler} role="dialog" tabindex="-1"
+        style={computeModalStyle}>
+
+        <div class="slds-modal__container">
+            <!-- close button outside modal  -->
+            <button if:false={hideCloseButton}
+                class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                title={labels.CLOSE_THIS_WINDOW} onclick={hide}>
+                <lightning-icon icon-name="utility:close" alternative-text={labels.CLOSE_THIS_WINDOW} variant="inverse"
+                    size="small">
+                </lightning-icon>
+                <label class="slds-assistive-text">{labels.CLOSE_THIS_WINDOW}</label>
+            </button>
+
+            <!-- header  -->
+            <div if:false={headless} class={computeHeaderCssClasses}>
+                <slot name="header" onslotchange={handleHeaderSlotChange}></slot>
+
+                <template if:false={_hasHeaderSlot}>
+                    <h1 if:true={modalTitle} id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                        {modalTitle}
+                    </h1>
+                    <p if:true={tagline} class="slds-var-m-top_x-small">
+                        {tagline}
+                    </p>
+                </template>
+            </div>
+
+            <!-- main content  -->
+            <div class={computeModalContentCssClasses} id="modal-content-id-1" tabindex="-1">
+                <slot></slot>
+            </div>
+
+            <!-- footer -->
+            <div if:false={footless} class={computeModalFooterCssClasses} style={computeFooterStyle}>
+                <slot name="footer" onslotchange={handleFooterSlotChange}></slot>
+
+                <template if:true={computeShowFooterButtons}>
+                    <lightning-button if:true={cancelButton} variant={cancelButton.variant} label={cancelButton.label}
+                        title={cancelButton.label} onclick={handleClickCancelButton} icon-name={cancelButton.iconName}
+                        icon-position={cancelButton.iconPosition}>
+                        <label class="slds-assistive-text">{cancelButton.label}</label>
+                    </lightning-button>
+
+                    <template if:true={actionButtons} for:each={actionButtons} for:item="button">
+                        <lightning-button key={button.label} variant={button.variant} data-id={button.label}
+                            label={button.label} title={button.label} onclick={handleClickActionButton}
+                            icon-name={button.iconName} icon-position={button.iconPosition}
+                            class="slds-var-p-left_x-small" disabled={button.disabled}>
+                            <label class="slds-assistive-text">{button.label}</label>
+                        </lightning-button>
+                    </template>
+                </template>
+            </div>
+        </div>
+    </section>
+</template>

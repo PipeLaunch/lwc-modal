@@ -1,0 +1,29 @@
+.lwc-modal {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--slds-c-modal-content-color-background,
+            var(--sds-c-modal-content-color-background,
+                var(--slds-c-modal-color-background,
+                    var(--sds-c-modal-color-background,
+                        var(--lwc-colorBackgroundAlt, rgb(255, 255, 255))))));
+    z-index: 99999;
+    position: absolute;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.lwc-modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--slds-c-modal-content-color-background,
+            var(--sds-c-modal-content-color-background,
+                var(--slds-c-modal-color-background,
+                    var(--sds-c-modal-color-background,
+                        var(--lwc-colorBackgroundAlt, rgb(255, 255, 255))))));
+    border-bottom: var(--slds-c-modal-sizing-border,
+            var(--sds-c-modal-sizing-border, 2px)) solid var(--slds-c-modal-color-border, var(--sds-c-modal-color-border, #e5e5e5));
+}

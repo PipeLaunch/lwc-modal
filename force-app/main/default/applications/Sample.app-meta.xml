@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>modal</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Generic and fully customizable LWC Modal component (LWC). Developed because Salesforce doesn&apos;t provide a proper modal component that can be compatible with mobile and desktop.</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>LWC Modal</label>
+    <navType>Standard</navType>
+    <tabs>Samples</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>LWC_Modal_UtilityBar</utilityBar>
+</CustomApplication>
