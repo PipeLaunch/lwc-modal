@@ -3,5 +3,5 @@ import CANCEL from "@salesforce/label/c.CANCEL";
 
 export default {
   CLOSE_THIS_WINDOW,
-  CANCEL,
+  CANCEL
 };

@@ -1,7 +1,7 @@
 <template>
     <div if:false={_hideBackdrop} onclick={hide} class={computeBackdropCssClasses} role="presentation"></div>
 
-    <section aria-describedby="modal-content-id-1" aria-hidden={visible} aria-labelledby="modal-heading-01"
+    <section aria-describedby="modal-content-id-1" aria-hidden={status.visible} aria-labelledby="modal-heading-01"
         aria-modal="true" class={computeModalCssClasses} onkeyup={innerKeyUpHandler} role="dialog" tabindex="-1"
         style={computeModalStyle}>
 
@@ -20,7 +20,7 @@
             <div if:false={headless} class={computeHeaderCssClasses}>
                 <slot name="header" onslotchange={handleHeaderSlotChange}></slot>
 
-                <template if:false={_hasHeaderSlot}>
+                <template if:false={hasHeaderSlot}>
                     <h1 if:true={modalTitle} id="modal-heading-01" class="slds-modal__title slds-hyphenate">
                         {modalTitle}
                     </h1>
@@ -39,7 +39,7 @@
             <div if:false={footless} class={computeModalFooterCssClasses} style={computeFooterStyle}>
                 <slot name="footer" onslotchange={handleFooterSlotChange}></slot>
 
-                <template if:true={computeShowFooterButtons}>
+                <template if:true={status.showFooterButtons}>
                     <lightning-button if:true={cancelButton} variant={cancelButton.variant} label={cancelButton.label}
                         title={cancelButton.label} onclick={handleClickCancelButton} icon-name={cancelButton.iconName}
                         icon-position={cancelButton.iconPosition}>
