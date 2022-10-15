@@ -1,15 +1,15 @@
 /**
  * @description       : Generic LWC Modal Component
  * @group             : LWC Generic Components
- * @last modified on  : 22-08-2022
+ * @last modified on  : 24-08-2022
  * @last modified by  : samuel@pipelaunch.com
  * @changelog         : 04-10-2022 - Initial version
  *                      12-08-2022 - Rename files (WARNING: look out with any any custom modifications done inside the files)
  *                                 - Only scroll to top on mobile devices
  *                                 - keepFooterButtons option
- *                                 - fix slot content
+ *                      24-08-2022 - fix slot content
  **/
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, track } from "lwc";
 
 import template_desktop from "./lwcModalTemplateDesktop.html";
 import template_mobile from "./lwcModalTemplateMobile.html";
@@ -20,7 +20,7 @@ import * as styling from "./lwcModalStyling";
 import {
   DEFAULT_SLDS_Z_INDEX,
   DEFAULT_ACTION_BUTTONS,
-  DEFAULT_CANCEL_BUTTON,
+  DEFAULT_CANCEL_BUTTON
 } from "./lwcModalConfig";
 
 export default class LwcModal extends LightningElement {
@@ -43,7 +43,7 @@ export default class LwcModal extends LightningElement {
       startVisible: this.startVisible,
       cancelButton: this.cancelButton,
       actionButtons: this.actionButtons,
-      keepFooterButtons: this.keepFooterButtons,
+      keepFooterButtons: this.keepFooterButtons
     };
   }
   set options(value) {
@@ -258,7 +258,11 @@ export default class LwcModal extends LightningElement {
     this._actionButtons = utils.validateActionButtons(value); // TODO: validate
   }
 
-  visible = false; // visibility status
+  @track status = {
+    visible: false, // visibility status
+    showFooterButtons: true, // show footer buttons, should be hidden automatically if there is a slot content
+  };
+
   labels = CUSTOM_LABELS;
 
   connectedCallback() {
@@ -269,7 +273,7 @@ export default class LwcModal extends LightningElement {
     return utils.isDesktop() ? template_desktop : template_mobile;
   }
 
-  // Temp testing
+  // Temp testing z[index]
   get computeModalStyle() {
     return `z-index: ${DEFAULT_SLDS_Z_INDEX + this._level};`;
   }
@@ -278,30 +282,26 @@ export default class LwcModal extends LightningElement {
     return `z-index: ${DEFAULT_SLDS_Z_INDEX - 1 + this._level};`;
   }
 
+  /**
+   * @description hide the modal
+   */
   @api hide() {
     this._hideShow(false);
   }
 
+  /**
+   * @description show the modal
+   */
   @api show() {
     this._hideShow(true);
     this._scrollToTop();
   }
 
+  /**
+   * @description show the modal
+   */
   @api open() {
     this._hideShow(true);
-  }
-
-  innerKeyUpHandler(event) {
-    if (event.code === "Escape") {
-      this.hide();
-    }
-  }
-
-  /**
-   * @type {Boolean} show footer buttons
-   */
-  get computeShowFooterButtons() {
-    return this._hasFooterSlot && !this._keepFooterButtons ? false : true;
   }
 
   /**
@@ -313,22 +313,37 @@ export default class LwcModal extends LightningElement {
       : "slds-modal__header custom-slds-modal__header-hidden";
   }
 
+  /**
+   * @type {String} classes for modal (desktop only)
+   */
   get computeModalCssClasses() {
-    return styling.computeModalCssClasses(this.visible);
+    return styling.computeModalCssClasses(this.status.visible);
   }
 
+  /**
+   * @type {String} classes for mobile devices modal
+   */
   get computeModalMobileCssClasses() {
-    return styling.computeModalMobileCssClasses(this.visible);
+    return styling.computeModalMobileCssClasses(this.status.visible);
   }
 
+  /**
+   * @type {String} classes for backdrop
+   */
   get computeBackdropCssClasses() {
-    return styling.computeBackdropCssClasses(this.visible);
+    return styling.computeBackdropCssClasses(this.status.visible);
   }
 
+  /**
+   * @type {String} classes for modal content
+   */
   get computeModalContentCssClasses() {
     return styling.computeModalContentCssClasses(this.headless);
   }
 
+  /**
+   * @type {String} classes for modal footer
+   */
   get computeModalFooterCssClasses() {
     return styling.computeModalFooterCssClasses(this.directional);
   }
@@ -351,6 +366,12 @@ export default class LwcModal extends LightningElement {
     return this.actionButtons.slice(0, this.actionButtons.length - 1);
   }
 
+  innerKeyUpHandler(event) {
+    if (event.code === "Escape") {
+      this.hide();
+    }
+  }
+
   handleClickCancelButton() {
     utils.executeCustomButtonFunction(this.cancelButton);
     this.hide();
@@ -366,21 +387,32 @@ export default class LwcModal extends LightningElement {
   }
 
   handleFooterSlotChange(evt) {
-    this._hasFooterSlot = this._hasSlotContent(evt);
+    this.status.showFooterButtons =
+      this._hasSlotContent(evt) && !this._keepFooterButtons ? false : true;
   }
 
   handleHeaderSlotChange(evt) {
-    this._hasHeaderSlot = this._hasSlotContent(evt);
+    this.hasHeaderSlot = this._hasSlotContent(evt);
   }
 
   _init() {
-    this.visible = this.startVisible;
+    this.status.visible = this.startVisible;
     this._scrollToTop();
   }
 
+  /**
+   * @description checks if slot has content (some elements)
+   * Use this if block because assigning event to variable issues in local dev
+   * @param {*} evt 
+   * @returns {Boolean} true if the slot has content
+   */
   _hasSlotContent(evt) {
-    const slot = evt.target !== undefined ? evt.target : evt.currentTarget;
-    return slot && slot.assignedElements().length > 0;
+    if (evt && evt.target !== undefined) {
+      return evt.target.assignedElements().length > 0;
+    }
+    if (evt && evt.currentTarget !== undefined) {
+      return evt.currentTarget.assignedElements().length > 0;
+    }
   }
 
   _dispatchActionButtonEvent(buttonDefinition) {
@@ -393,23 +425,26 @@ export default class LwcModal extends LightningElement {
         new CustomEvent(buttonDefinition.customEvent, {
           detail: this.guid,
           composed: this._propagateEvents,
-          bubbles: this._propagateEvents,
+          bubbles: this._propagateEvents
         })
       );
     }
   }
 
   _hideShow(visible = true) {
-    this.visible = visible;
+    this.status.visible = visible;
     const eventName = visible ? "show" : "hide";
     this.dispatchEvent(
       new CustomEvent(eventName, {
         composed: this._propagateEvents,
-        bubbles: this._propagateEvents,
+        bubbles: this._propagateEvents
       })
     );
   }
 
+  /**
+   * Scroll to top on mobile devices because the modal is positioned absolute
+   */
   _scrollToTop() {
     if (!utils.isDesktop()) {
       window.scrollTo(0, 1);

@@ -18,11 +18,10 @@
   * @modifier
   * @group direction
   */
-  .custom-lwc-modal__footer_directional > lightning-button {
+.custom-lwc-modal__footer_directional>lightning-button {
     float: right;
-  }
+}
 
-  .custom-lwc-modal__footer_directional >  lightning-button:nth-child(2) {
+.custom-lwc-modal__footer_directional>lightning-button:nth-child(2) {
     float: left;
-  }
-
+}
