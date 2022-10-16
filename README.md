@@ -6,7 +6,9 @@
 
 ## About
 
-Generic and fully customizable LWC Modal component (LWC). Developed because Salesforce doesn't provide a proper modal component that can be compatible with mobile and desktop.
+Generic and fully customizable LWC Modal component (LWC). ~~Developed because Salesforce doesn't provide a proper modal component that can be compatible with mobile and desktop~~.
+
+NOTE: Winter 23 release brings the native modal component: https://developer.salesforce.com/docs/component-library/bundle/lightning-modal/documentation (need to test how mobile support works)
 
 ## Features
 - Native SLDS Style: https://www.lightningdesignsystem.com/components/modals/
